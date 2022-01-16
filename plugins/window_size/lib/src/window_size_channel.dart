@@ -90,6 +90,12 @@ const String _getWindowMaximumSizeMethod = 'getWindowMaximumSize';
 /// be visible.
 const String _setWindowVisibilityMethod = 'setWindowVisibility';
 
+/// The method name to set the window visibility.
+///
+/// The argument will be a boolean controlling whether or not the window should
+/// be maximized.
+const String _setWindowMaximizedMethod = 'setWindowMaximized';
+
 // Keys for screen and window maps returned by _getScreenListMethod.
 
 /// The frame of a screen or window. The value is a list of four doubles:
@@ -171,6 +177,11 @@ class WindowSizeChannel {
   /// Sets the visibility of the window.
   void setWindowVisibility({required bool visible}) async {
     await _platformChannel.invokeMethod(_setWindowVisibilityMethod, visible);
+  }
+
+  /// Sets whether the window is maximized or not.
+  void setWindowMaximized({required bool maximized}) async {
+    await _platformChannel.invokeMethod(_setWindowMaximizedMethod, maximized);
   }
 
   // Window maximum size unconstrained is passed over the channel as -1.

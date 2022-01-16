@@ -70,6 +70,11 @@ void setWindowVisibility({required bool visible}) async {
   WindowSizeChannel.instance.setWindowVisibility(visible: visible);
 }
 
+/// Maximizes or unmaximizes the window.
+void setWindowMaximized({required bool maximized}) async {
+  WindowSizeChannel.instance.setWindowMaximized(maximized: maximized);
+}
+
 /// Sets the window title's represented [Uri], of the window containing this Flutter instance.
 ///
 /// Only implemented for macOS. If the URL is a file URL, the

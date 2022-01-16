@@ -40,6 +40,7 @@ const char kSetWindowMinimumSize[] = "setWindowMinimumSize";
 const char kSetWindowMaximumSize[] = "setWindowMaximumSize";
 const char kSetWindowTitleMethod[] = "setWindowTitle";
 const char ksetWindowVisibilityMethod[] = "setWindowVisibility";
+const char ksetWindowMaximizedMethod[] = "setWindowMaximized";
 const char kFrameKey[] = "frame";
 const char kVisibleFrameKey[] = "visibleFrame";
 const char kScaleFactorKey[] = "scaleFactor";
@@ -244,6 +245,16 @@ void WindowSizePlugin::HandleMethodCall(
     }
     ::ShowWindow(GetRootWindow(registrar_->GetView()),
                  *visible ? SW_SHOW : SW_HIDE);
+    result->Success();
+  } else if (method_call.method_name().compare(ksetWindowMaximizedMethod) ==
+             0) {
+    const bool *maximized = std::get_if<bool>(method_call.arguments());
+    if (maximized == nullptr) {
+      result->Error("Bad arguments", "Expected bool");
+      return;
+    }
+    ::ShowWindow(GetRootWindow(registrar_->GetView()),
+                 *maximized ? SW_SHOWMAXIMIZED : SW_SHOWNORMAL);
     result->Success();
   } else {
     result->NotImplemented();
